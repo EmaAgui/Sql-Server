@@ -26,6 +26,7 @@ CREATE TABLE Proveedor
 	Nombre varchar(20),
 	Domicilio varchar(20),
 	Ciudad varchar(20),
+
 )
 
 CREATE TABLE Tiene
@@ -208,7 +209,7 @@ INSERT INTO CompuestoPor VALUES (4, 2)
 INSERT INTO CompuestoPor VALUES (4, 3)
 INSERT INTO CompuestoPor VALUES (4, 4)
 INSERT INTO CompuestoPor VALUES (4, 5)
-INSERT INTO CompuestoPor VALUES (4, )
+INSERT INTO CompuestoPor VALUES (4, 6)
 
 
 SELECT * FROM CompuestoPor

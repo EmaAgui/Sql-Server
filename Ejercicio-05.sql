@@ -146,9 +146,29 @@ group by pre.codCliente, pre.codPel
 
 /**
 	6- Listar los clientes que hayan alquilado todas las películas del video.
-**/select clie.codCliente from cliente clie where  not exists  (	select 1 from pelicula pel where  not exists	(		select 1 from prestamo pres where pres.codPel = pel.codPel and pres.codCliente = clie.codCliente	))select * from prestamo/**
+**/
+
+select clie.codCliente from cliente clie where  not exists  
+(
+	select 1 from pelicula pel where  not exists
+	(
+		select 1 from prestamo pres where pres.codPel = pel.codPel and pres.codCliente = clie.codCliente
+	)
+)
+select * from prestamo
+
+/**
 	7- Listar las películas que no han registrado ningún préstamo a la fecha.
-**/select pres.codCliente from prestamo pres where pres.fPrest < '2022-10-17' and not exists(	select * from pelicula pres)/**
+**/
+
+select pres.codCliente from prestamo pres where pres.fPrest < '2022-10-17' and not exists
+(
+	select * from pelicula pres
+)
+
+
+
+/**
 	8- Listar los clientes que no han efectuado la devolución de ejemplares.
 **/
 	
@@ -157,6 +177,21 @@ group by pre.codCliente, pre.codPel
 /**
 	9- Listar los títulos de las películas que tienen la mayor cantidad de préstamos.
 **/
-create view PelCant(codPel, CantPrestamo) asselect codPel, count(codpel)cantPrestamo from prestamo group by codPelselect codPel from PelCant where CantPrestamo = all(select MAX(CantPrestamo) from PelCant)/**
+create view PelCant(codPel, CantPrestamo) as
+select codPel, count(codpel)cantPrestamo from prestamo group by codPel
+
+
+
+select codPel from PelCant where CantPrestamo = all(select MAX(CantPrestamo) from PelCant)
+
+/**
 	10-  Listar las películas que tienen todos los ejemplares prestados.
-**/select * from pelicula pel where not exists(	select 1 from ejemplar ejemp where not exists	(		select 1 from prestamo pre where pre.codEjemplar = ejemp.codEjemplar and pre.codPel = ejemp.codPel	))
+**/
+select * from pelicula pel where not exists
+(
+	select 1 from ejemplar ejemp where not exists
+	(
+		select 1 from prestamo pre where pre.codEjemplar = ejemp.codEjemplar and pre.codPel = ejemp.codPel
+	)
+)
+

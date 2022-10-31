@@ -9,11 +9,10 @@ SELECT count(*) as 'cant unidades'
 	WHERE estado='stock'
 
 --3. Indique los productos que nunca fueron vendidos. 
-	SELECT p.Id_producto
-	FROM producto p
-	WHERE NOT EXISTS (SELECT 1
-	FROM detalle_venta dv
-	where dv.Id_producto = p.Id_producto)
+	SELECT p.Id_producto FROM producto p WHERE NOT EXISTS 
+	(
+		SELECT 1 FROM detalle_venta dv where dv.Id_producto = p.Id_producto
+	)
 
 	SELECT p.Id_producto--, count(dv.tiro_detalle)
 	FROM producto p LEFT JOIN Detalle_venta dv on p.Id_producto = dv.Id_producto
@@ -56,6 +55,9 @@ select Id_producto
   group by Id_producto
    having sum(Cantidad) > 20
 
+   select *
+ from Detalle_venta dv, Producto p where dv.Id_producto = p.Id_producto
+  
 
 SELECT dv.Id_producto, SUM(dv.Cantidad)
 	FROM detalle_venta dv 
@@ -92,6 +94,7 @@ END
 --Probar
 EXEC sp_cargarVendedor 24,'Walter', 'White',9000006;
 
+select * from Vendedor
 
 --10. Obtenga los productos que fueron vendidos a 3 clientes
 SELECT * 
